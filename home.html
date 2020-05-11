@@ -43,12 +43,6 @@
       // failed.", it means you probably did not give permission for the browser to
       // locate you.
       var map, infoWindow;
-      function setInfo(infowindow, marker)
-        {
-          marker.addListener('click', function() {
-          infowindow.open(map, marker);
-          });
-        }
       
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -105,7 +99,9 @@
           content: "Bike type: BMX<br>Battery:68%<br>Location: zhk. Mladost1"
         });
 
-        
+        marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  });
             map.setCenter(pos);
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
