@@ -84,6 +84,9 @@
              infowindow = new google.maps.InfoWindow({
           content: "Bike type: BMX<br>Battery:68%<br>Location: zhk. Mladost1"
         });
+              infowindow2 = new google.maps.InfoWindow({
+          content: "Bike type: Balkanche Model S<br>Battery:97%<br>Location: pred fmi-to"
+        });
       var marker = new google.maps.Marker({position: pos, map: map, icon: './current.png'});
       var marker2 = new google.maps.Marker({position: pos2, map: map, icon: './velobike.PNG'});
       var marker3 = new google.maps.Marker({position: pos3, map: map, icon: './velobike.PNG'});
@@ -95,6 +98,9 @@
 
         marker.addListener('click', function() {
     infowindow.open(map, marker);
+  });
+        marker2.addListener('click', function() {
+    infowindow2.open(map, marker2);
   });
             map.setCenter(pos);
           }, function() {
