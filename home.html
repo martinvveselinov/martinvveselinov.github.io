@@ -96,10 +96,10 @@
       var marker7 = new google.maps.Marker({position: pos7, map: map, icon: './velobike.PNG'});
           
 
-        marker.addListener('click', function() {
+        marker.addListener('mouseover', function() {
     infowindow.open(map, marker);
   });
-        marker2.addListener('click', function() {
+        marker2.addListener('mouseover', function() {
     infowindow2.open(map, marker2);
   });
             map.setCenter(pos);
