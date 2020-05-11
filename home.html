@@ -96,14 +96,12 @@
       var marker7 = new google.maps.Marker({position: pos7, map: map, icon: './velobike.PNG'});
           
 
-        marker.addListener('mouseover', function() {
+        marker.addListener('click', function() {
     infowindow.open(map, marker);
   });
-        setTimeout(function () { infowindow.close(); }, 5000);
-        marker2.addListener('mouseover', function() {
+        marker2.addListener('click', function() {
     infowindow2.open(map, marker2);
   });
-        setTimeout(function () { infowindow2.close(); }, 5000);
             map.setCenter(pos);
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
