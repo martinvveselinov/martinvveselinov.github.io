@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>VeloCity</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <span class="open-slide">
+      <a href="#" onclick="openAccSlideMenu()">
+        <svg width="30" height="30">
+            <path d="M0,5 30,5" stroke="#fff" stroke-width="5"/>
+            <path d="M0,14 30,14" stroke="#fff" stroke-width="5"/>
+            <path d="M0,23 30,23" stroke="#fff" stroke-width="5"/>
+        </svg>
+      </a>
+    </span>
+</nav>
+
+  <div id="side-menu-acc" class="side-nav-acc">
+    <a href="#" class="btn-close-acc" onclick="closeAccSlideMenu()">&times;</a>
+    <div class="img-name-container">
+      <img class="image" src="./avatar.png">
+      <p id="username" >User Userov</p>
+    </div>
+    <div class="choices-container">
+      <a href="./index.html">Settings</a>
+      <a href="#">Notifications</a>
+      <a href="acc.html">Search for bicycles</a>
+      <a href="payments.html">Show nearby</a>
+      <a href="settings.html">Invite friends</a>
+      <a href="settings.html">Help</a>
+    </div>
+  </div>
+
+    <div id="map"></div>
+  <script>
+      // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+      var map, infoWindow;
+      function setInfo(infowindow, marker)
+        {
+          marker.addListener('click', function() {
+          infowindow.open(map, marker);
+          });
+        }
+      
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 16
+        });
+        infoWindow = new google.maps.InfoWindow();
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+       var pos2 = {
+              lat: position.coords.latitude + 0.01,
+              lng: position.coords.longitude + 0.01
+            };
+       var pos3 = {
+              lat: position.coords.latitude + 0.02,
+              lng: position.coords.longitude + 0.02
+            };
+      var pos4 = {
+              lat: position.coords.latitude - 0.03,
+              lng: position.coords.longitude - 0.03
+            };
+       var pos5 = {
+              lat: position.coords.latitude + 0.03,
+              lng: position.coords.longitude - 0.03
+            };
+       var pos6 = {
+              lat: position.coords.latitude - 0.02,
+              lng: position.coords.longitude + 0.05
+            };
+      var pos7 = {
+              lat: position.coords.latitude - 0.06,
+              lng: position.coords.longitude + 0.03
+            };
+             infowindow = new google.maps.InfoWindow({
+          content: "Bike type: BMX<br>Battery:68%<br>Location: zhk. Mladost1"
+        });
+      var marker = new google.maps.Marker({position: pos, map: map, icon: './current.png'});
+      setInfo(infoWindow, marker);
+      var marker2 = new google.maps.Marker({position: pos2, map: map, icon: './velobike.png'});
+      var marker3 = new google.maps.Marker({position: pos3, map: map, icon: './velobike.png'});
+      var marker4 = new google.maps.Marker({position: pos4, map: map, icon: './velobike.png'});
+      var marker5 = new google.maps.Marker({position: pos5, map: map, icon: './velobike.png'});
+      var marker6 = new google.maps.Marker({position: pos6, map: map, icon: './velobike.png'});
+      var marker7 = new google.maps.Marker({position: pos7, map: map, icon: './velobike.png'});
+          
+
+            infowindow = new google.maps.InfoWindow({
+          content: "Bike type: BMX<br>Battery:68%<br>Location: zhk. Mladost1"
+        });
+
+        
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+
+     } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+  </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBenh82tfzET62NjqR7ca2t7UyAorxAH5k&callback=initMap">
+    </script>
+  <script>
+    function openSlideMenu(){
+      document.getElementById('side-menu').style.width = '250px';
+      document.getElementById('main').style.marginLeft = '250px';
+    }
+    function openAccSlideMenu(){
+      document.getElementById('side-menu-acc').style.width = '260px';
+      document.getElementById('map').style.marginLeft = '260px';
+    }
+    function closeAccSlideMenu(){
+      document.getElementById('side-menu-acc').style.width = '0';
+      document.getElementById('map').style.marginLeft = '0';
+    }
+    function closeSlideMenu(){
+      document.getElementById('side-menu').style.width = '0';
+      document.getElementById('main').style.marginLeft = '0';
+    }
+  </script>
+</body>
+</html>
