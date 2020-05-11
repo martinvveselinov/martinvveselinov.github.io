@@ -10,14 +10,16 @@ input {
 }
 
 /*---------------------------------------------*/
-button {
+button, .input-btn{
 	border: none;
 	background: transparent;
 }
 
-button:hover {
+button:hover, .input-btn:hover {
 	cursor: pointer;
 }
+ .input-btn{
+color: green; }
 
 
 .container-login100 {
