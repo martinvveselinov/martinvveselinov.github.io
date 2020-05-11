@@ -99,9 +99,11 @@
         marker.addListener('mouseover', function() {
     infowindow.open(map, marker);
   });
+        setTimeout(function () { infowindow.close(); }, 5000);
         marker2.addListener('mouseover', function() {
     infowindow2.open(map, marker2);
   });
+        setTimeout(function () { infowindow2.close(); }, 5000);
             map.setCenter(pos);
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
