@@ -10,34 +10,30 @@
 <body>
   <nav class="navbar">
     <span class="open-slide">
-      <a href="#" onclick="openSlideMenu()">
-        <svg width="30" height="30">
-            <path d="M0,5 30,5" stroke="#fff" stroke-width="5"/>
-            <path d="M0,14 30,14" stroke="#fff" stroke-width="5"/>
-            <path d="M0,23 30,23" stroke="#fff" stroke-width="5"/>
-        </svg>
+      <a href="#" onclick="openSlideMenuTemplate('acc')">
+        Menu
       </a>
     </span>
 </nav>
 
   <div id="side-menu-acc" class="side-nav-acc">
-    <a href="#" class="btn-close-acc" onclick="closeSlideMenu()">&times;</a>
+    <a href="#" class="btn-close-acc" onclick="closeSlideMenuTemplate('acc')">&times;</a>
     <div class="img-name-container">
       <img class="image" src="./avatar.png">
       <p id="username" >User Userov</p>
     </div>
     <div class="choices-container">
-      <a href="#" onclick="openSettingsSlideMenu()">Settings</a>
-      <a href="#" onclick="openNotificationsSlideMenu()">Notifications</a>
-      <a href="#" onclick="openSearchSlideMenu()">Search for bicycles</a>
-      <a href="#" onclick="openNearbySlideMenu()">Show nearby</a>
-      <a href="#" onclick="openInviteSlideMenu()">Invite friends</a>
-      <a href="#" onclick="openHelpSlideMenu()">Help</a>
+      <a href="#" onclick="openSlideMenuTemplate('set')">Settings</a>
+      <a href="#" onclick="openSlideMenuTemplate('notif')">Notifications</a>
+      <a href="#" onclick="openSlideMenuTemplate('search')">Search for bicycles</a>
+      <a href="#" onclick="openSlideMenuTemplate('nearby')">Show nearby</a>
+      <a href="#" onclick="openSlideMenuTemplate('invite')">Invite friends</a>
+      <a href="#" onclick="openSlideMenuTemplate('help')">Help</a>
     </div>
   </div>
 
    <div id="side-menu-set" class="side-nav-set">
-    <a href="#" class="btn-close-set" onclick="closeSettingsSlideMenu()">&times;</a>
+    <a href="#" class="btn-close-set" onclick="closeSlideMenuTemplate('set')">&times;</a>
     <div class="setting-choices-container">
       <a href="#">Change profile picture</a>
       <a href="#">Change email</a>
@@ -46,7 +42,7 @@
     </div>
   </div>
   <div id="side-menu-notif" class="side-nav-notif">
-    <a href="#" class="btn-close-notif" onclick="closeNotificationsSlideMenu()">&times;</a>
+    <a href="#" class="btn-close-notif" onclick="closeSlideMenuTemplate('notif')">&times;</a>
     <div class="notification-choices-container">
       <a href="#">Show all notifications</a>
       <a href="#">Mute notifications</a>
@@ -54,7 +50,7 @@
     </div>
   </div>
   <div id="side-menu-search" class="side-nav-search">
-    <a href="#" class="btn-close-search" onclick="closeSearchSlideMenu()">&times;</a>
+    <a href="#" class="btn-close-search" onclick="closeSlideMenuTemplate('search')">&times;</a>
     <div class="search-choices-container">
       <a href="#">Search by bike type</a>
       <a href="#">Search by battery charge</a>
@@ -62,14 +58,14 @@
     </div>
   </div>
   <div id="side-menu-nearby" class="side-nav-nearby">
-    <a href="#" class="btn-close-nearby" onclick="closeNearbySlideMenu()">&times;</a>
+    <a href="#" class="btn-close-nearby" onclick="closeSlideMenuTemplate('nearby')">&times;</a>
     <div class="nearby-choices-container">
       <a href="#">Show nearby bikes</a>
       <a href="#">Show nearby bike stands</a>
     </div>
   </div>
   <div id="side-menu-invite" class="side-nav-invite">
-    <a href="#" class="btn-close-invite" onclick="closeInviteSlideMenu()">&times;</a>
+    <a href="#" class="btn-close-invite" onclick="closeSlideMenuTemplate('invite')">&times;</a>
     <div class="invite-choices-container">
       <a href="#">Invite a friend</a>
       <a href="#">Your friends</a>
@@ -77,7 +73,7 @@
     </div>
   </div>
   <div id="side-menu-help" class="side-nav-help">
-    <a href="#" class="btn-close-help" onclick="closeHelpSlideMenu()">&times;</a>
+    <a href="#" class="btn-close-help" onclick="closeSlideMenuTemplate('help')">&times;</a>
     <div class="help-choices-container">
       <a href="#">About VeloCity</a>
       <a href="#">FAQ</a>
@@ -85,40 +81,6 @@
       <a href="#">Terms and Conditions</a>
     </div>
   </div>
-    <!-- 
-    <div class="search-container">
-      <a href="./index.html">Settings</a>
-      <a href="#">Notifications</a>
-      <a href="acc.html">Search for bicycles</a>
-      <a href="payments.html">Show nearby</a>
-      <a href="settings.html">Invite friends</a>
-      <a href="settings.html">Help</a>
-    </div>
-    <div class="nearby-container">
-      <a href="./index.html">Settings</a>
-      <a href="#">Notifications</a>
-      <a href="acc.html">Search for bicycles</a>
-      <a href="payments.html">Show nearby</a>
-      <a href="settings.html">Invite friends</a>
-      <a href="settings.html">Help</a>
-    </div>
-    <div class="invite-container">
-      <a href="./index.html">Settings</a>
-      <a href="#">Notifications</a>
-      <a href="acc.html">Search for bicycles</a>
-      <a href="payments.html">Show nearby</a>
-      <a href="settings.html">Invite friends</a>
-      <a href="settings.html">Help</a>
-    </div>
-    <div class="help-container">
-      <a href="./index.html">Settings</a>
-      <a href="#">Notifications</a>
-      <a href="acc.html">Search for bicycles</a>
-      <a href="payments.html">Show nearby</a>
-      <a href="settings.html">Invite friends</a>
-      <a href="settings.html">Help</a>
-    </div>
- -->
     <div id="map"></div>
   <script>
       // Note: This example requires that you consent to location sharing when
@@ -208,71 +170,16 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBenh82tfzET62NjqR7ca2t7UyAorxAH5k&callback=initMap">
     </script>
   <script>
-    /*function openSlideMenu(){
-      document.getElementById('side-menu').style.width = '250px';
-      document.getElementById('main').style.marginLeft = '250px';
-    }*/
-    function openSlideMenu(){
-      document.getElementById('side-menu-acc').style.width = '260px';
+    function openSlideMenuTemplate(menu){
+      var id = "side-menu-" + menu;
+      document.getElementById(id).style.width = '260px';
       document.getElementById('map').style.marginLeft = '260px';
     }
-     function closeSlideMenu(){
-      document.getElementById('side-menu-acc').style.width = '0';
+    function closeSlideMenuTemplate(menu){
+      var id = "side-menu-" + menu;
+      document.getElementById(id).style.width = '0';
       document.getElementById('map').style.marginLeft = '0';
     }
-    function openSettingsSlideMenu(){
-      document.getElementById('side-menu-set').style.width = '260px';
-      document.getElementById('map').style.marginLeft = '260px';
-    }
-    function closeSettingsSlideMenu(){
-      document.getElementById('side-menu-set').style.width = '0';
-      document.getElementById('map').style.marginLeft = '0';
-    }
-    function openNotificationsSlideMenu(){
-      document.getElementById('side-menu-notif').style.width = '260px';
-      document.getElementById('map').style.marginLeft = '260px';
-    }
-    function closeNotificationsSlideMenu(){
-      document.getElementById('side-menu-notif').style.width = '0';
-      document.getElementById('map').style.marginLeft = '0';
-    }
-    function openSearchSlideMenu(){
-      document.getElementById('side-menu-search').style.width = '260px';
-      document.getElementById('map').style.marginLeft = '260px';
-    }
-    function closeSearchSlideMenu(){
-      document.getElementById('side-menu-search').style.width = '0';
-      document.getElementById('map').style.marginLeft = '0';
-    }
-    function openNearbySlideMenu(){
-      document.getElementById('side-menu-nearby').style.width = '260px';
-      document.getElementById('map').style.marginLeft = '260px';
-    }
-    function closeNearbySlideMenu(){
-      document.getElementById('side-menu-nearby').style.width = '0';
-      document.getElementById('map').style.marginLeft = '0';
-    }
-    function openInviteSlideMenu(){
-      document.getElementById('side-menu-invite').style.width = '260px';
-      document.getElementById('map').style.marginLeft = '260px';
-    }
-    function closeInviteSlideMenu(){
-      document.getElementById('side-menu-invite').style.width = '0';
-      document.getElementById('map').style.marginLeft = '0';
-    }
-    function openHelpSlideMenu(){
-      document.getElementById('side-menu-help').style.width = '260px';
-      document.getElementById('map').style.marginLeft = '260px';
-    }
-    function closeHelpSlideMenu(){
-      document.getElementById('side-menu-help').style.width = '0';
-      document.getElementById('map').style.marginLeft = '0';
-    }
-   
-   /* function closeSlideMenu(){
-      document.getElementById('side-menu').style.width = '0';
-      document.getElementById('main').style.marginLeft = '0';
-    }*/
   </script>
 </body>
 </html>
