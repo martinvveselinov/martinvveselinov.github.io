@@ -29,6 +29,7 @@
       <a href="#" onclick="openSlideMenuTemplate('nearby')">Show nearby</a>
       <a href="#" onclick="openSlideMenuTemplate('invite')">Invite friends</a>
       <a href="#" onclick="openSlideMenuTemplate('help')">Help</a>
+      <a href="./index.html" onclick="logout()">Logout</a>
     </div>
   </div>
 
@@ -132,6 +133,9 @@
               infowindow2 = new google.maps.InfoWindow({
           content: "Bike type: Balkanche Model S<br>Battery:97%<br>Location: pred fmi-to"
         });
+              infowindow3 = new google.maps.InfoWindow({
+          content: "<a href=\"./index.html\"> Back to beginning </a>"
+        });
       var marker = new google.maps.Marker({position: pos, map: map, icon: './current.png'});
       var marker2 = new google.maps.Marker({position: pos2, map: map, icon: './velobike.PNG'});
       var marker3 = new google.maps.Marker({position: pos3, map: map, icon: './velobike.PNG'});
@@ -146,6 +150,9 @@
   });
         marker2.addListener('click', function() {
     infowindow2.open(map, marker2);
+  });
+        marker3.addListener('click', function() {
+    infowindow3.open(map, marker3);
   });
             map.setCenter(pos);
           }, function() {
@@ -180,6 +187,16 @@
       document.getElementById(id).style.width = '0';
       if(menu == 'acc'){
         document.getElementById('map').style.marginLeft = '0';
+      }
+    }
+    function logout()
+    {
+      var txt;
+      var r = confirm("Are you sure you want to logout?");
+      if (r == true) {
+        txt = "You pressed OK!";
+      } else {
+        txt = "You pressed Cancel!";
       }
     }
   </script>
