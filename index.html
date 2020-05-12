@@ -26,13 +26,12 @@
 			}
 			else if(pass !== "pass")
 			{
-				var currColor = document.getElementById('email').style.color;
+				var currColor = document.getElementById('pass').style.color;
 				document.getElementById('pass').style.color = "red";
-        		document.getElementById('pass').value = "Wrong email!";
         		document.getElementById('pass').onclick=function() {clear()};
 				function clear() {
 				  document.getElementById("pass").value = "";
-  				  document.getElementById("email").style.color = currColor;
+  				  document.getElementById("pass").style.color = currColor;
 				};
 				return false;		
 			}
