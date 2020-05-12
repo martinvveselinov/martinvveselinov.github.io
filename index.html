@@ -11,12 +11,32 @@
 		{
 			  var email = document.forms["login-form"]["email"].value;
 			  var pass = document.forms["login-form"]["pass"].value;	
-			if(!localeCompare(email, 'user@user.bg') || !localeCompare(pass, 'pass'))
+			if(email !== "user@user.bg")
 			{
-				alert("Wron email or password. Try again!");
+				var currColor = document.getElementById('email').style.color;
+        		document.getElementById('email').style.color = "red";
+        		document.getElementById('email').value = "Wrong email!";
+        		document.getElementById('email').onclick=function() {clear()};
+				function clear() {
+				  document.getElementById("email").value = "";
+  				  document.getElementById("email").style.color = currColor;
+
+				};
 				return false;		
-			
-			else alert("ITS OK");		}
+			}
+			else if(pass !== "pass")
+			{
+				var currColor = document.getElementById('email').style.color;
+				document.getElementById('pass').style.color = "red";
+        		document.getElementById('pass').value = "Wrong email!";
+        		document.getElementById('pass').onclick=function() {clear()};
+				function clear() {
+				  document.getElementById("pass").value = "";
+  				  document.getElementById("email").style.color = currColor;
+				};
+				return false;		
+			}
+		}
 	</script>
 </head>
 <body>
