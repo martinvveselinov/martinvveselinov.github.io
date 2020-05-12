@@ -178,7 +178,9 @@
     function closeSlideMenuTemplate(menu){
       var id = "side-menu-" + menu;
       document.getElementById(id).style.width = '0';
-      document.getElementById('map').style.marginLeft = '0';
+      if(menu == 'acc'){
+        document.getElementById('map').style.marginLeft = '0';
+      }
     }
   </script>
 </body>
