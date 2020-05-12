@@ -34,7 +34,7 @@ html, body {
 }
 
 
-.side-nav-acc{
+.side-nav-acc, .side-nav-set, .side-nav-notif, .side-nav-search, .side-nav-nearby, .side-nav-invite, .side-nav-help{
   height: 100%;
   width: 0;
   position:fixed;
@@ -47,7 +47,7 @@ html, body {
   transition:0.5s;
   background: linear-gradient(to bottom, #D3D3D3 0%, #778899 100%);
 }
-.side-nav-acc a{
+.side-nav-acc a, .side-nav-set a, .side-nav-notif a, .side-nav-search a, .side-nav-nearby a, .side-nav-invite a, .side-nav-help a{
   padding:10px 10px 10px 30px;
   text-decoration:none;
   font-size:22px;
@@ -55,7 +55,7 @@ html, body {
   transition:0.3s;
 }
 
-.side-nav-acc a:hover{
+.side-nav-acc a:hover, .side-nav-set a:hover, .side-nav-notif a:hover, .side-nav-search a:hover, .side-nav-nearby a:hover, .side-nav-invite a:hover, .side-nav-help a:hover{
   color:#fff;
 }
 .side-nav-acc .img-name-container{
@@ -69,6 +69,24 @@ html, body {
 .side-nav-acc .choices-container{
   font-size: 10px;
 }
+.side-nav-set .setting-choices-container{
+  font-size: 10px;
+}
+.side-nav-notif .notification-choices-container{
+  font-size: 10px;
+}
+.side-nav-search .search-choices-container{
+  font-size: 10px;
+}
+.side-nav-nearby .nearby-choices-container{
+  font-size: 10px;
+}
+.side-nav-invite .invite-choices-container{
+  font-size: 10px;
+}
+.side-nav-help .help-choices-container{
+  font-size: 10px;
+}
 .side-nav-acc #username{
   color: black;
   font-size: 25px;
@@ -77,7 +95,7 @@ html, body {
 }
 
 
-.side-nav-acc .btn-close-acc{
+.side-nav-acc .btn-close-acc, .side-nav-set .btn-close-set, .side-nav-notif .btn-close-notif, .side-nav-search .btn-close-search, .side-nav-nearby .btn-close-nearby, .side-nav-invite .btn-close-invite, .side-nav-help .btn-close-help{
   position:absolute;
   top:0;
   right:22px;
@@ -86,8 +104,17 @@ html, body {
   margin-left:50px;
   background: transparent;
 }
-.btn-close-acc:hover{
-  background:   transparent;  
+/*.side-nav-set .btn-close-set{
+  position:absolute;
+  top:0;
+  right:22px;
+  color: white;
+  font-size:36px;
+  margin-left:50px;
+  background: transparent;
+}*/
+.btn-close-acc:hover, .btn-close-set:hover, .btn-close-notif:hover{
+  background: transparent;  
 }
 
 
