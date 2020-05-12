@@ -29,7 +29,7 @@
       <a href="#" onclick="openSlideMenuTemplate('nearby')">Show nearby</a>
       <a href="#" onclick="openSlideMenuTemplate('invite')">Invite friends</a>
       <a href="#" onclick="openSlideMenuTemplate('help')">Help</a>
-      <a href="./index.html" onclick="logout()">Logout</a>
+      <a href="#" onclick="logout()">Logout</a>
     </div>
   </div>
 
@@ -195,9 +195,10 @@
       var txt;
       var r = confirm("Are you sure you want to logout?");
       if (r == true) {
-        txt = "You pressed OK!";
+        txt = "See you soon!";
+        window.location.href = "./index.html";
       } else {
-        txt = "You pressed Cancel!";
+        txt = "Logout cancelled!";
       }
     }
   </script>
