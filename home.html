@@ -53,14 +53,44 @@
   <div id="side-menu-search" class="side-nav-search">
     <a href="#" class="btn-close-search" onclick="closeSlideMenuTemplate('search')">&times;</a>
     <div class="search-choices-container">
-      <a href="#">Search by bike type</a>
-      <a href="#">Search by battery charge</a>
-      <a href="#">Search by location</a>
+      <a onclick="show('type')">Search by bike type</a>
+      <select hidden id="type" onchange="filterMarkers('type', this.value);">
+        <option value="">All</option>
+        <option value="BMX">BMX</option>
+        <option value="Balkanche">Balkanche</option>
+        <option value="Trikolka">Trikolka</option>
+        <option value="Kolichka">Kolichka</option>
+        <option value="Trotinetka">Trotinetka</option>
+        <option value="bike">bike</option>
+      </select>
+      <a onclick="show('battery')">Search by battery charge</a>
+      <select hidden id="battery" onchange="filterMarkers('battery', this.value);">
+        <option value="">All</option>
+        <option value="10">1-10</option>
+        <option value="20">11-20</option>
+        <option value="30">21-30</option>
+        <option value="40">31-40</option>
+        <option value="50">41-50</option>
+        <option value="60">51-60</option>
+        <option value="70">61-70</option>
+        <option value="80">71-80</option>
+        <option value="90">81-90</option>
+        <option value="100">91-100</option>
+      </select>
+      <a onclick="show('location')">Search by location</a>
+      <select hidden id="location" onchange="filterMarkers('location', this.value);">
+        <option value="">All</option>
+        <option value="100">0-100 m.</option>
+        <option value="500">101-500 m.</option>
+        <option value="1000">501-1000 m.</option>
+        <option value="1500">1001-1500 m.</option>
+        <option value="2000"> 1500 m.</option>
+      </select>
     </div>
   </div>
   <div id="side-menu-nearby" class="side-nav-nearby">
     <a href="#" class="btn-close-nearby" onclick="closeSlideMenuTemplate('nearby')">&times;</a>
-    <div class="nearby-choices-container">
+    <div class="nearby-choices-container">z
       <a href="#">Show nearby bikes</a>
       <a href="#">Show nearby bike stands</a>
     </div>
@@ -83,21 +113,15 @@
     </div>
   </div>
     <div id="map"></div>
- 
-  <script>
-      // Note: This example requires that you consent to location sharing when
-      // prompted by your browser. If you see the error "The Geolocation service
-      // failed.", it means you probably did not give permission for the browser to
-      // locate you.
+<script>
       var map, infoWindow;
-      
+      var markers = [];
+
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: -34.397, lng: 150.644},
           zoom: 16
         });
-
-        // Try HTML5 geolocation.
         if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
@@ -128,25 +152,24 @@
               lat: position.coords.latitude - 0.06,
               lng: position.coords.longitude + 0.03
             };
-             infowindow = new google.maps.InfoWindow({
-          content: "Bike type: BMX<br>Battery:68%<br>Location: zhk. Mladost1"
-        });
-              infowindow2 = new google.maps.InfoWindow({
-          content: "Bike type: Balkanche Model S<br>Battery:97%<br>Location: pred fmi-to"
-        });
-              infowindow3 = new google.maps.InfoWindow({
-          content: "<a href=\"./index.html\"> Back to beginning </a>"
-        });
-      var marker = new google.maps.Marker({position: pos, map: map, icon: 'img/current.png'});
-      var marker2 = new google.maps.Marker({position: pos2, map: map, icon: 'img/velobike.PNG'});
-      var marker3 = new google.maps.Marker({position: pos3, map: map, icon: 'img/velobike.PNG'});
-      var marker4 = new google.maps.Marker({position: pos4, map: map, icon: 'img/velobike.PNG'});
-      var marker5 = new google.maps.Marker({position: pos5, map: map, icon: 'img/velobike.PNG'});
-      var marker6 = new google.maps.Marker({position: pos6, map: map, icon: 'img/velobike.PNG'});
-      var marker7 = new google.maps.Marker({position: pos7, map: map, icon: 'img/velobike.PNG'});
-          
+            var infowindow = new google.maps.InfoWindow();
 
-        marker.addListener('click', function() {
+      markers[0] = new google.maps.Marker({position: pos, type: "BMX", battery: "45", map: map, icon: 'img/current.png'});
+      markers[1] = new google.maps.Marker({position: pos2,type: "Balkanche", battery: "10", map: map, icon: 'img/velobike.PNG'});
+      markers[2] = new google.maps.Marker({position: pos3,type: "Trikolka", battery: "75", map: map, icon: 'img/velobike.PNG'});
+      markers[3] = new google.maps.Marker({position: pos4,type: "Kolichka", battery: "88", map: map, icon: 'img/velobike.PNG'});
+      markers[4] = new google.maps.Marker({position: pos5,type: "Trotinetka", battery: "23", map: map, icon: 'img/velobike.PNG'});
+      markers[5] = new google.maps.Marker({position: pos6,type: "bike", battery: "12", map: map, icon: 'img/velobike.PNG'});
+      markers[6] = new google.maps.Marker({position: pos7,type: "bike", battery: "56", map: map, icon: 'img/velobike.PNG'});
+          var infowindow = [];
+          for(var i = 0; i < markers.length; ++i)
+          {
+            addInfoWindow(markers[i], map);
+          }
+        /*marker.addListener('click', function() {
+          infowindow = new google.maps.InfoWindow({
+          content: marker.position + "<br>" + marker.type
+        });
     infowindow.open(map, marker);
   });
         marker2.addListener('click', function() {
@@ -154,7 +177,7 @@
   });
         marker3.addListener('click', function() {
     infowindow3.open(map, marker3);
-  });
+  });*/
             map.setCenter(pos);
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
@@ -165,7 +188,18 @@
           handleLocationError(false, infoWindow, map.getCenter());
         }
       }
+      function addInfoWindow(marker, map){
+        marker.addListener('click', function() {
 
+            from = markers[0].position;
+            to = marker.position;
+            var dist = Spherical.computeDistanceBetween(from, to);
+            infowindow = new google.maps.InfoWindow({
+              content: dist + "<br>" + marker.type + "<br>" + marker.battery
+            });
+            infowindow.open(map, marker);
+            });
+      }
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
         infoWindow.setContent(browserHasGeolocation ?
@@ -173,11 +207,70 @@
                               'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
       }
+      filterMarkers = function(type, category) // type = type/battery/location
+                                               // category = value of the selection
+      {
+        if(type == "type"){
+          for (i = 0; i < markers.length; i++) {
+              marker = markers[i];
+              if(marker.type == category || category.length == 0)
+              {
+                  marker.setVisible(true);
+              }
+              // Categories don't match 
+              else
+              {          
+                  marker.setVisible(false);
+              }
+          }  
+        }
+        else if(type == "battery"){
+          for (i = 0; i < markers.length; i++) {
+              marker = markers[i];
+
+              // If is same category or category not picked
+              if(parseInt(marker.battery) >= parseInt(category) - 10 && parseInt(marker.battery) <= parseInt(category))
+              {
+                  marker.setVisible(true);
+              }
+              // Categories don't match 
+              else
+              {          
+                  marker.setVisible(false);
+              }
+          }  
+        }
+        else if(type == "location"){
+          var from, to;
+          for (i = 0; i < markers.length; i++){
+            marker = markers[i];
+            from = markers[0].position;
+            to = markers[i].position;
+            if(Spherical.computeDistanceBetween(from, to) <= parseInt(category))
+            {
+                marker.setVisible(true);
+            }
+            else
+            {          
+                marker.setVisible(false);
+            }
+          }  
+        }           
+      }
   </script>
   <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBenh82tfzET62NjqR7ca2t7UyAorxAH5k&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBenh82tfzET62NjqR7ca2t7UyAorxAH5k&libraries=geometry&callback=initMap">
     </script>
+
   <script>
+    function show(type){
+      var x = document.getElementById(type);
+      if(x.hasAttribute("hidden")){
+        x.removeAttribute("hidden");
+      }
+      else x.setAttribute("hidden", true);
+      
+    }
     function openSlideMenuTemplate(menu){
       var id = "side-menu-" + menu;
       document.getElementById(id).style.width = '260px';
