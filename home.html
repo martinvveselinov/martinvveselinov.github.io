@@ -55,7 +55,7 @@
     <div class="search-choices-container">
       <a onclick="show('type')">Search by bike type</a>
       <select hidden id="type" onchange="filterMarkers('type', this.value);">
-        <option value="">All</option>
+        <option value="all">All</option>
         <option value="BMX">BMX</option>
         <option value="Balkanche">Balkanche</option>
         <option value="Trikolka">Trikolka</option>
@@ -65,7 +65,7 @@
       </select>
       <a onclick="show('battery')">Search by battery charge</a>
       <select hidden id="battery" onchange="filterMarkers('battery', this.value);">
-        <option value="">All</option>
+        <option value="all">All</option>
         <option value="10">1-10</option>
         <option value="20">11-20</option>
         <option value="30">21-30</option>
@@ -79,7 +79,7 @@
       </select>
       <a onclick="show('location')">Search by location</a>
       <select hidden id="location" onchange="filterMarkers('location', this.value);">
-        <option value="">All</option>
+        <option value="all">All</option>
         <option value="100">0-100 m.</option>
         <option value="500">101-500 m.</option>
         <option value="1000">501-1000 m.</option>
@@ -213,7 +213,7 @@
         if(type == "type"){
           for (i = 0; i < markers.length; i++) {
               marker = markers[i];
-              if(marker.type == category || category.length == 0)
+              if(marker.type == category || category == 'all')
               {
                   marker.setVisible(true);
               }
@@ -229,7 +229,7 @@
               marker = markers[i];
 
               // If is same category or category not picked
-              if(parseInt(marker.battery) >= parseInt(category) - 10 && parseInt(marker.battery) <= parseInt(category))
+              if(parseInt(marker.battery) >= parseInt(category) - 9 && parseInt(marker.battery) <= parseInt(category) || category == 'all')
               {
                   marker.setVisible(true);
               }
@@ -246,7 +246,7 @@
             marker = markers[i];
             from = markers[0].position;
             to = markers[i].position;
-            if(Spherical.computeDistanceBetween(from, to) <= parseInt(category))
+            if(Spherical.computeDistanceBetween(from, to) <= parseInt(category) || category == 'all')
             {
                 marker.setVisible(true);
             }
