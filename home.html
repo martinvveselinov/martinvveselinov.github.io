@@ -14,6 +14,7 @@
         Menu
       </a>
     </span>
+    <a id="cnt">Total bikes: </a>
 </nav>
 
   <div id="side-menu-acc" class="side-nav-acc">
@@ -150,7 +151,8 @@
               infowindow.open(map, current);
           });  
      
-      var total = Math.floor(Math.random(1) * 25);
+      var total = (Math.floor(Math.random() * 25) + 1);
+      document.getElementById("cnt").innerHTML += total;
       for(var i = 0; i < total; ++i){
         var typ = type[Math.floor(Math.random() * 5)];
         var battery = Math.floor(Math.random() * 100);
@@ -173,78 +175,6 @@
            }
     })(bikes[i], i));
       }
-          
-          /*var i = 0;
-          for(i; i < bikes.length; ++i)
-          { 
-            bikes[i].addListener('click', function() {
-              var from, to, dist;
-              alert(bikes[i].position);
-              from = current.position;
-              to = bikes[i].position;
-          }); 
-          }*/
-          /*bikes[0].addListener('click', function() {
-              var from, to, dist;
-              from = current.position;
-              to = bikes[0].position;
-              dist = Spherical.computeDistanceBetween(from, to);
-              infowindow = new google.maps.InfoWindow({
-                content: dist + "<br>" + bikes[0].type + "<br>" + bikes[0].battery
-              });
-              infowindow.open(map, bikes[0]);
-          });  
-          bikes[1].addListener('click', function() {
-              var from, to;
-              from = current.position;
-              to = bikes[1].position;
-              var dist = Spherical.computeDistanceBetween(from, to);
-              infowindow = new google.maps.InfoWindow({
-                content: dist + "<br>" + bikes[1].type + "<br>" + bikes[1].battery
-              });
-              infowindow.open(map, bikes[1]);
-          });  
-          bikes[2].addListener('click', function() {
-              var from, to;
-              from = current.position;
-              to = bikes[2].position;
-              var dist = Spherical.computeDistanceBetween(from, to);
-              infowindow = new google.maps.InfoWindow({
-                content: dist + "<br>" + bikes[2].type + "<br>" + bikes[2].battery
-              });
-              infowindow.open(map, bikes[2]);
-          });  
-          bikes[3].addListener('click', function() {
-              var from, to;
-              from = current.position;
-              to = bikes[3].position;
-              var dist = Spherical.computeDistanceBetween(from, to);
-              infowindow = new google.maps.InfoWindow({
-                content: dist + "<br>" + bikes[3].type + "<br>" + bikes[3].battery
-              });
-              infowindow.open(map, bikes[3]);
-          });  
-          bikes[4].addListener('click', function() {
-              var from, to;
-              from = current.position;
-              to = bikes[4].position;
-              var dist = Spherical.computeDistanceBetween(from, to);
-              infowindow = new google.maps.InfoWindow({
-                content: dist + "<br>" + bikes[4].type + "<br>" + bikes[4].battery
-              });
-              infowindow.open(map, bikes[4]);
-          });  
-          bikes[5].addListener('click', function() {
-              var from, to;
-              from = current.position;
-              to = bikes[5].position;
-              var dist = Spherical.computeDistanceBetween(from, to);
-              infowindow = new google.maps.InfoWindow({
-                content: dist + "<br>" + bikes[5].type + "<br>" + bikes[5].battery
-              });
-              infowindow.open(map, bikes[5]);
-          });  
-*/
             map.setCenter(cur_pos);
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());

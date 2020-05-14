@@ -20,7 +20,7 @@ html, body {
 .navbar-nav{
   margin-left: 260px; 
 }
-.navbar a{
+.navbar a, #cnt{
   float:left;
   display:block;
   color: white;
