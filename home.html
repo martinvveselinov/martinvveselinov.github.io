@@ -131,15 +131,7 @@
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-           
-            for(var i = 0; i < 6; ++i){
-                positions[i] = {
-                lat: position.coords.latitude + (Math.floor(Math.random() * 199) -99)/1000,
-                lng: position.coords.longitude - (Math.floor(Math.random() * 199) -99)/1000
-              }
-            }
-     
-            var infowindow = new google.maps.InfoWindow();
+      var infowindow = new google.maps.InfoWindow();
       var type = [];
       var curr_type = "here";
       type[0] = "BMX";
@@ -151,27 +143,33 @@
       current = new google.maps.Marker({position: cur_pos, map: map, icon: 'img/here.png'});
      
       current.addListener('click', function() {
+              infowindow.close();
               infowindow = new google.maps.InfoWindow({
                 content: "You are here!"  
               });
               infowindow.open(map, current);
           });  
      
-      
-      for(var i = 0; i < 6; ++i){
+      var total = Math.floor(Math.random(1) * 25);
+      for(var i = 0; i < total; ++i){
         var typ = type[Math.floor(Math.random() * 5)];
         var battery = Math.floor(Math.random() * 100);
-        bikes[i] = new google.maps.Marker({position: positions[i],type: typ, battery: battery, map: map, icon: 'img/current.png'});
-        from = current.position;
-        to = bikes[i].position;
-        dist = Spherical.computeDistanceBetween(from, to);
-        google.maps.event.addListener(bikes[i], 'click', (function(marker, i) {
+        var posi = {
+                lat: position.coords.latitude + (Math.floor(Math.random() * 199) -99)/5000,
+                lng: position.coords.longitude - (Math.floor(Math.random() * 199) -99)/5000
+              }
+        bikes[i] = new google.maps.Marker({position: posi, type: typ, battery: battery, map: map, icon: 'img/current.png'});
+        
+        bikes[i].addListener('click', (function(marker, i) {
            return function() {
             infowindow.close();
+            from = current.position;
+        to = marker.position;
+        dist = Math.floor(Spherical.computeDistanceBetween(from, to));
               infowindow = new google.maps.InfoWindow({
-                content: dist + "<br>" + marker.type + "<br>" + marker.battery
+                content: "Distance from you: " + dist + " m.<br>Bike type: " + bikes[i].type + "<br>Remaining battery: " + bikes[i].battery
               });
-              infowindow.open(map, marker);
+              infowindow.open(map, bikes[i]);
            }
     })(bikes[i], i));
       }
@@ -269,16 +267,14 @@
         if(type == "type"){
           for (i = 0; i < bikes.length; i++) {
               marker = bikes[i];
-              if(marker.type == category || category == 'all')
-              {
+              if(marker.type == category || category == 'all'){
                   marker.setVisible(true);
               }
-              // Categories don't match 
-              else
-              {          
+              else{          
                   marker.setVisible(false);
               }
           }  
+          alert(i);
         }
         else if(type == "battery"){
           for (i = 0; i < bikes.length; i++) {
