@@ -161,7 +161,7 @@
       for(var i = 0; i < 6; ++i){
         var typ = type[Math.floor(Math.random() * 5)];
         var battery = Math.floor(Math.random() * 100);
-        bikes[i] = new google.maps.Marker({position: positions[i],type: typ, battery: battery, map: map, icon: 'img/current.PNG'});
+        bikes[i] = new google.maps.Marker({position: positions[i],type: typ, battery: battery, map: map, icon: 'img/current.png'});
         from = current.position;
         to = bikes[i].position;
         dist = Spherical.computeDistanceBetween(from, to);
