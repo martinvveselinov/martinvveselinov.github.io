@@ -114,71 +114,140 @@
   </div>
     <div id="map"></div>
 <script>
-      var map, infoWindow;
-      var markers = [];
-
-      function initMap() {
+      var map;
+      var bikes = [];
+      var positions = [];
+      var current;
+      var cur_pos;
+      function initMap(){
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: -34.397, lng: 150.644},
-          zoom: 16
+          zoom: 9
         });
-        if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
+        if(navigator.geolocation){
+          var cur_pos;
+                  navigator.geolocation.getCurrentPosition(function(position) {
+            cur_pos = {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-       var pos2 = {
-              lat: position.coords.latitude + 0.01,
-              lng: position.coords.longitude + 0.01
-            };
-       var pos3 = {
-              lat: position.coords.latitude + 0.02,
-              lng: position.coords.longitude + 0.02
-            };
-      var pos4 = {
-              lat: position.coords.latitude - 0.03,
-              lng: position.coords.longitude - 0.03
-            };
-       var pos5 = {
-              lat: position.coords.latitude + 0.03,
-              lng: position.coords.longitude - 0.03
-            };
-       var pos6 = {
-              lat: position.coords.latitude - 0.02,
-              lng: position.coords.longitude + 0.05
-            };
-      var pos7 = {
-              lat: position.coords.latitude - 0.06,
-              lng: position.coords.longitude + 0.03
-            };
+           
+            for(var i = 0; i < 6; ++i){
+                positions[i] = {
+                lat: position.coords.latitude + (Math.floor(Math.random() * 199) -99)/1000,
+                lng: position.coords.longitude - (Math.floor(Math.random() * 199) -99)/1000
+              }
+            }
+     
             var infowindow = new google.maps.InfoWindow();
-
-      markers[0] = new google.maps.Marker({position: pos, type: "BMX", battery: "45", map: map, icon: 'img/current.png'});
-      markers[1] = new google.maps.Marker({position: pos2,type: "Balkanche", battery: "10", map: map, icon: 'img/velobike.PNG'});
-      markers[2] = new google.maps.Marker({position: pos3,type: "Trikolka", battery: "75", map: map, icon: 'img/velobike.PNG'});
-      markers[3] = new google.maps.Marker({position: pos4,type: "Kolichka", battery: "88", map: map, icon: 'img/velobike.PNG'});
-      markers[4] = new google.maps.Marker({position: pos5,type: "Trotinetka", battery: "23", map: map, icon: 'img/velobike.PNG'});
-      markers[5] = new google.maps.Marker({position: pos6,type: "bike", battery: "12", map: map, icon: 'img/velobike.PNG'});
-      markers[6] = new google.maps.Marker({position: pos7,type: "bike", battery: "56", map: map, icon: 'img/velobike.PNG'});
-          var infowindow = [];
-          for(var i = 0; i < markers.length; ++i)
-          {
-            addInfoWindow(markers[i], map);
-          }
-        /*marker.addListener('click', function() {
-          infowindow = new google.maps.InfoWindow({
-          content: marker.position + "<br>" + marker.type
-        });
-    infowindow.open(map, marker);
-  });
-        marker2.addListener('click', function() {
-    infowindow2.open(map, marker2);
-  });
-        marker3.addListener('click', function() {
-    infowindow3.open(map, marker3);
-  });*/
-            map.setCenter(pos);
+      var type = [];
+      var curr_type = "here";
+      type[0] = "BMX";
+      type[1] = "Balkanche";
+      type[2] = "Trikolka";
+      type[3] = "Kolichka";
+      type[4] = "Trotinetka";
+      type[5] = "bike";
+      current = new google.maps.Marker({position: cur_pos, map: map, icon: 'img/here.png'});
+     
+      current.addListener('click', function() {
+              infowindow = new google.maps.InfoWindow({
+                content: "You are here!"  
+              });
+              infowindow.open(map, current);
+          });  
+     
+      
+      for(var i = 0; i < 6; ++i){
+        var typ = type[Math.floor(Math.random() * 5)];
+        var battery = Math.floor(Math.random() * 100);
+        bikes[i] = new google.maps.Marker({position: positions[i],type: typ, battery: battery, map: map, icon: 'img/current.PNG'});
+        from = current.position;
+        to = bikes[i].position;
+        dist = Spherical.computeDistanceBetween(from, to);
+        google.maps.event.addListener(bikes[i], 'click', (function(marker, i) {
+           return function() {
+            infowindow.close();
+              infowindow = new google.maps.InfoWindow({
+                content: dist + "<br>" + marker.type + "<br>" + marker.battery
+              });
+              infowindow.open(map, marker);
+           }
+    })(bikes[i], i));
+      }
+          
+          /*var i = 0;
+          for(i; i < bikes.length; ++i)
+          { 
+            bikes[i].addListener('click', function() {
+              var from, to, dist;
+              alert(bikes[i].position);
+              from = current.position;
+              to = bikes[i].position;
+          }); 
+          }*/
+          /*bikes[0].addListener('click', function() {
+              var from, to, dist;
+              from = current.position;
+              to = bikes[0].position;
+              dist = Spherical.computeDistanceBetween(from, to);
+              infowindow = new google.maps.InfoWindow({
+                content: dist + "<br>" + bikes[0].type + "<br>" + bikes[0].battery
+              });
+              infowindow.open(map, bikes[0]);
+          });  
+          bikes[1].addListener('click', function() {
+              var from, to;
+              from = current.position;
+              to = bikes[1].position;
+              var dist = Spherical.computeDistanceBetween(from, to);
+              infowindow = new google.maps.InfoWindow({
+                content: dist + "<br>" + bikes[1].type + "<br>" + bikes[1].battery
+              });
+              infowindow.open(map, bikes[1]);
+          });  
+          bikes[2].addListener('click', function() {
+              var from, to;
+              from = current.position;
+              to = bikes[2].position;
+              var dist = Spherical.computeDistanceBetween(from, to);
+              infowindow = new google.maps.InfoWindow({
+                content: dist + "<br>" + bikes[2].type + "<br>" + bikes[2].battery
+              });
+              infowindow.open(map, bikes[2]);
+          });  
+          bikes[3].addListener('click', function() {
+              var from, to;
+              from = current.position;
+              to = bikes[3].position;
+              var dist = Spherical.computeDistanceBetween(from, to);
+              infowindow = new google.maps.InfoWindow({
+                content: dist + "<br>" + bikes[3].type + "<br>" + bikes[3].battery
+              });
+              infowindow.open(map, bikes[3]);
+          });  
+          bikes[4].addListener('click', function() {
+              var from, to;
+              from = current.position;
+              to = bikes[4].position;
+              var dist = Spherical.computeDistanceBetween(from, to);
+              infowindow = new google.maps.InfoWindow({
+                content: dist + "<br>" + bikes[4].type + "<br>" + bikes[4].battery
+              });
+              infowindow.open(map, bikes[4]);
+          });  
+          bikes[5].addListener('click', function() {
+              var from, to;
+              from = current.position;
+              to = bikes[5].position;
+              var dist = Spherical.computeDistanceBetween(from, to);
+              infowindow = new google.maps.InfoWindow({
+                content: dist + "<br>" + bikes[5].type + "<br>" + bikes[5].battery
+              });
+              infowindow.open(map, bikes[5]);
+          });  
+*/
+            map.setCenter(cur_pos);
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });
@@ -188,18 +257,7 @@
           handleLocationError(false, infoWindow, map.getCenter());
         }
       }
-      function addInfoWindow(marker, map){
-        marker.addListener('click', function() {
-
-            from = markers[0].position;
-            to = marker.position;
-            var dist = Spherical.computeDistanceBetween(from, to);
-            infowindow = new google.maps.InfoWindow({
-              content: dist + "<br>" + marker.type + "<br>" + marker.battery
-            });
-            infowindow.open(map, marker);
-            });
-      }
+     
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
         infoWindow.setContent(browserHasGeolocation ?
@@ -207,12 +265,10 @@
                               'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
       }
-      filterMarkers = function(type, category) // type = type/battery/location
-                                               // category = value of the selection
-      {
+      filterMarkers = function(type, category){
         if(type == "type"){
-          for (i = 0; i < markers.length; i++) {
-              marker = markers[i];
+          for (i = 0; i < bikes.length; i++) {
+              marker = bikes[i];
               if(marker.type == category || category == 'all')
               {
                   marker.setVisible(true);
@@ -225,8 +281,8 @@
           }  
         }
         else if(type == "battery"){
-          for (i = 0; i < markers.length; i++) {
-              marker = markers[i];
+          for (i = 0; i < bikes.length; i++) {
+              marker = bikes[i];
 
               // If is same category or category not picked
               if(parseInt(marker.battery) >= parseInt(category) - 9 && parseInt(marker.battery) <= parseInt(category) || category == 'all')
@@ -242,10 +298,10 @@
         }
         else if(type == "location"){
           var from, to;
-          for (i = 0; i < markers.length; i++){
-            marker = markers[i];
-            from = markers[0].position;
-            to = markers[i].position;
+          for (i = 0; i < bikes.length; i++){
+            marker = bikes[i];
+            from = current.position;
+            to = bikes[i].position;
             if(Spherical.computeDistanceBetween(from, to) <= parseInt(category) || category == 'all')
             {
                 marker.setVisible(true);
@@ -258,8 +314,7 @@
         }           
       }
   </script>
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBenh82tfzET62NjqR7ca2t7UyAorxAH5k&libraries=geometry&callback=initMap">
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBenh82tfzET62NjqR7ca2t7UyAorxAH5k&libraries=geometry&callback=initMap">
     </script>
 
   <script>
