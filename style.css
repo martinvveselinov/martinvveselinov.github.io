@@ -30,6 +30,19 @@ html, body {
   font-size:25px;
   border-right: 2px solid black;
 }
+#minutes, #seconds, #delimiter, #stop{
+  float:left;
+  display:block;
+  color: white;
+  text-align:center;
+  padding:14px 16px;
+  text-decoration:none;
+  font-size:25px;
+}
+.navbar a:hover, #cnt:hover{
+  background: white;
+  color: black;
+}
 
 .navbar ul{
   margin:8px 0 0 0;
@@ -40,6 +53,7 @@ html, body {
 .side-nav-acc, .side-nav-set, .side-nav-notif, .side-nav-search, .side-nav-nearby, .side-nav-invite, .side-nav-help{
   height: 100%;
   width: 0;
+  max-width: 100%;
   position:fixed;
   z-index:10;
   top:0;

@@ -15,7 +15,10 @@
       </a>
     </span>
     <a id="cnt">Total bikes: </a>
-</nav>
+<span hidden onclick="clearInterval('timer')" id="stop"></span>
+    <span hidden id="minutes">
+    
+  </nav>
 
   <div id="side-menu-acc" class="side-nav-acc">
     <a href="#" class="btn-close-acc" onclick="closeSlideMenuTemplate('acc')">&times;</a>
@@ -115,6 +118,7 @@
   </div>
     <div id="map"></div>
 <script>
+  
       var map;
       var bikes = [];
       var positions = [];
@@ -123,7 +127,7 @@
       function initMap(){
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: -34.397, lng: 150.644},
-          zoom: 9
+          zoom: 13
         });
         if(navigator.geolocation){
           var cur_pos;
@@ -153,7 +157,8 @@
      
       var total = (Math.floor(Math.random() * 25) + 1);
       document.getElementById("cnt").innerHTML += total;
-      for(var i = 0; i < total; ++i){
+      var i;
+      for(i = 0; i < total; ++i){
         var typ = type[Math.floor(Math.random() * 5)];
         var battery = Math.floor(Math.random() * 100);
         var posi = {
@@ -168,11 +173,13 @@
             from = current.position;
         to = marker.position;
         dist = Math.floor(Spherical.computeDistanceBetween(from, to));
-              infowindow = new google.maps.InfoWindow({
-                content: "Distance from you: " + dist + " m.<br>Bike type: " + bikes[i].type + "<br>Remaining battery: " + bikes[i].battery
-              });
-              infowindow.open(map, bikes[i]);
-           }
+
+        infowindow = new google.maps.InfoWindow({
+          content: "Distance from you: " + dist + " m.<br>Bike type: " + bikes[i].type + "<br>Remaining battery: " + bikes[i].battery + "<button type=\"buttton\" onclick=\"unlockBike(\'" +this.position+ "\',\'start\');\">Click Me</button>"
+        }); 
+        //unlockBike(this);
+        infowindow.open(map, this);
+         }
     })(bikes[i], i));
       }
             map.setCenter(cur_pos);
@@ -194,6 +201,7 @@
         infoWindow.open(map);
       }
       filterMarkers = function(type, category){
+        
         if(type == "type"){
           for (i = 0; i < bikes.length; i++) {
               marker = bikes[i];
@@ -204,22 +212,16 @@
                   marker.setVisible(false);
               }
           }  
-          alert(i);
         }
         else if(type == "battery"){
-          for (i = 0; i < bikes.length; i++) {
-              marker = bikes[i];
-
-              // If is same category or category not picked
-              if(parseInt(marker.battery) >= parseInt(category) - 9 && parseInt(marker.battery) <= parseInt(category) || category == 'all')
-              {
-                  marker.setVisible(true);
-              }
-              // Categories don't match 
-              else
-              {          
-                  marker.setVisible(false);
-              }
+          for (i = 0; i < bikes.length; i++){
+            marker = bikes[i];
+            if(parseInt(marker.battery) >= parseInt(category) - 9 && parseInt(marker.battery) <= parseInt(category) || category == 'all'){
+                marker.setVisible(true);
+            }
+            else{
+                marker.setVisible(false);
+            }
           }  
         }
         else if(type == "location"){
@@ -239,11 +241,49 @@
           }  
         }           
       }
+        
+      var unlockBike = function(marker, status){
+       var test = JSON.parse(JSON.stringify(marker));
+       document.getElementById("stop").innerHTML = "Finish session";
+       document.getElementById("stop").removeAttribute("hidden");
+        for(var i = 0; i < bikes.length; ++i){
+              if(test != bikes[i].position){
+                bikes[i].setVisible(false);
+              }
+           }var timerVar = setInterval(countTimer, 1000);
+    var totalSeconds = 0;
+    function countTimer() {
+       ++totalSeconds;
+       var hour = Math.floor(totalSeconds /3600);
+       var minute = Math.floor((totalSeconds - hour*3600)/60);
+       var seconds = totalSeconds - (hour*3600 + minute*60);
+       if(hour < 10)
+         hour = "0"+hour;
+       if(minute < 10)
+         minute = "0"+minute;
+       if(seconds < 10)
+         seconds = "0"+seconds;
+       document.getElementById("minutes").innerHTML = hour + ":" + minute + ":" + seconds;
+    }
+      }
+      function  stop(){
+        for(var i = 0; i < bikes.length; ++i){
+              bikes[i].setVisible(true);
+         }
+        var minutesLabel = document.getElementById("minutes");
+        var secondsLabel = document.getElementById("seconds");
+        minutesLabel.setAttribute("hidden", true);
+        secondsLabel.setAttribute("hidden", true);
+        document.getElementById("stop").setAttribute("hidden", true);
+        document.getElementById("stop").innerHTML = "";
+      }
+
   </script>
   <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBenh82tfzET62NjqR7ca2t7UyAorxAH5k&libraries=geometry&callback=initMap">
     </script>
 
   <script>
+    
     function show(type){
       var x = document.getElementById(type);
       if(x.hasAttribute("hidden")){
