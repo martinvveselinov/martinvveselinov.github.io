@@ -15,7 +15,7 @@
       </a>
     </span>
     <a id="cnt">Total bikes: </a>
-<span hidden onclick="clearInterval('timer')" id="stop"></span>
+<span hidden onclick="stop()" id="stop"></span>
     <span hidden id="minutes">
     
   </nav>
@@ -118,7 +118,8 @@
   </div>
     <div id="map"></div>
 <script>
-  
+            var timerVar;
+
       var map;
       var bikes = [];
       var positions = [];
@@ -241,39 +242,42 @@
           }  
         }           
       }
-        
       var unlockBike = function(marker, status){
-       var test = JSON.parse(JSON.stringify(marker));
-       document.getElementById("stop").innerHTML = "Finish session";
-       document.getElementById("stop").removeAttribute("hidden");
+        var test = JSON.parse(JSON.stringify(marker));
+        document.getElementById("stop").innerHTML = "Finish session";
+        document.getElementById("stop").removeAttribute("hidden");
         for(var i = 0; i < bikes.length; ++i){
-              if(test != bikes[i].position){
-                bikes[i].setVisible(false);
-              }
-           }var timerVar = setInterval(countTimer, 1000);
-    var totalSeconds = 0;
-    function countTimer() {
-       ++totalSeconds;
-       var hour = Math.floor(totalSeconds /3600);
-       var minute = Math.floor((totalSeconds - hour*3600)/60);
-       var seconds = totalSeconds - (hour*3600 + minute*60);
-       if(hour < 10)
-         hour = "0"+hour;
-       if(minute < 10)
-         minute = "0"+minute;
-       if(seconds < 10)
-         seconds = "0"+seconds;
-       document.getElementById("minutes").innerHTML = hour + ":" + minute + ":" + seconds;
-    }
+          if(test != bikes[i].position){
+            bikes[i].setVisible(false);
+          }
+         }
+        timerVar = setInterval(countTimer, 1000);
+        var totalSeconds = 0;
+        function countTimer() {
+         ++totalSeconds;
+         var hour = Math.floor(totalSeconds /3600);
+         var minute = Math.floor((totalSeconds - hour*3600)/60);
+         var seconds = totalSeconds - (hour*3600 + minute*60);
+         if(hour < 10)
+           hour = "0"+hour;
+         if(minute < 10)
+           minute = "0"+minute;
+         if(seconds < 10)
+           seconds = "0"+seconds;
+         document.getElementById("minutes").innerHTML = hour + ":" + minute + ":" + seconds;
       }
+        }
+
+      
       function  stop(){
+        clearInterval(timerVar);
         for(var i = 0; i < bikes.length; ++i){
               bikes[i].setVisible(true);
          }
         var minutesLabel = document.getElementById("minutes");
-        var secondsLabel = document.getElementById("seconds");
         minutesLabel.setAttribute("hidden", true);
-        secondsLabel.setAttribute("hidden", true);
+        minutesLabel.innerHTML = "";
+        
         document.getElementById("stop").setAttribute("hidden", true);
         document.getElementById("stop").innerHTML = "";
       }
