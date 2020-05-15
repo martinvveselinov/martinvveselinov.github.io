@@ -1,25 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-	<meta charset="UTF-8">
-  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" href="./css/unregistered.css">
-</head>
-<body>
-	<div>
-		<h1>HERE IS SOME INFO FOR THE UNREGISTERED USERS: REGISTER!</h1> 
-	</div>
-	<div>
-		<h3>You can log in using the following credentials:</h3>
-		<ul>
-			<li>email: user@user.bg</li>
-			<li>password: pass</li>
-		</ul>
-	</div>
-	<button onclick="window.location.href = './index.html';">
-		Back
-	</button>
-</body>
+	<head>
+		<meta charset="UTF-8">
+	  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" type="text/css" href="css/util.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+	</head>
+	<body>
+		<div class="infopage">
+		<div>
+			<h1>VeloCity</h1> 
+		</div>
+		<section style="display: block; font-size: 20px;">
+			<p>With the growth of the population in the big cities, where there are thousands / millions of citizens who go to work, school and all other places in the city, transport is of the greatest importance to them.</p> <hr> <p>People want to get to a place in a fast and convenient way, but in most cases this is not the case. Huge traffic jams occur most regularly and people stay in their cars for hours and waste their time and nerves and create general chaos in the city due to the fact that everyone wants to use their car at the same time.</p> <hr> <p>In order to ease traffic in the city, motivate people to play sports, leave their cars and take a little for the environment, we present our system of shared use of city bikes. With them, anyone using the mobile application or website can easily and quickly reach their desired destination or just drive for health in the park.</p><hr><p>
+	The VeloCity software system is designed for renting bicycles within the city. The main goal of the system is to inform users through a mobile application about the nearest free bicycles, with which they can travel within the city. The bicycles are equipped with an electric drive system, but can also be driven by the cyclist's own power, using pedals.</p>
+	<p>With VeloCity you can:</p>
+	<ul>
+		<li>See all available bikes in your area</li>
+		<li>Search bikes by location, type and remaining battery</li>
+		<li>Rent a bike and start riding!</li>
+		<li>When you reach your destination, you can leave the bike in the specified areas.</li>
+	</ul>
+		</section>
+			<h3 style="text-align: left;">If you like the idea, please join us:</h3>
+			<!-- <ul>
+				<li>email: user@user.bg</li>
+				<li>password: pass</li>
+			</ul> -->
+			
+				<div class="wrap-login100 p-l-55 p-r-55 p-b-54" style="background-color: transparent;">
+				<form  name="login-form" class="login100-form validate-form" action="./home.html" onsubmit="return validate()">
+					<div class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
+						<input class="input100" type="text" id="email" name="username" placeholder="Email*">
+					</div>
+					<div class="wrap-input100 validate-input m-b-23" data-validate="Password is required">
+						<input class="input100" type="password" id="pass" name="pass" placeholder="Password*">
+					</div>
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button type="submit" onclick="window.location.href = './home.html' class="login100-form-btn">
+								Register
+							</button>
+						</div>
+					</div>
+					<br>
+				</form>
+			</div>
+		</div>
+	</body>
 </html>

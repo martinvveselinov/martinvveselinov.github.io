@@ -24,11 +24,19 @@ color: green; }
 
 .container-login100 {
   width: 100%;  
-  min-height: 100vh;
+  min-height: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+}
+.infopage {
+  width: 100%;  
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
 }
 
 .wrap-login100 {
