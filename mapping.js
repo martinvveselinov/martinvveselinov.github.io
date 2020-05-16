@@ -81,17 +81,33 @@
                               'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
       }
-
+      finishpayment = function(){
+        document.getElementById("bill").setAttribute("hidden", true);
+        document.getElementById("bill").innerHTML = "";
+        document.getElementById("pay").setAttribute("hidden", true);
+        document.getElementById("pay").innerHTML = "";
+        document.getElementById("stop").setAttribute("hidden", true);
+        document.getElementById("stop").innerHTML = "";
+        document.getElementById("minutes").setAttribute("hidden", true);
+        document.getElementById("minutes").innerHTML = "";
+        document.getElementById("card-info").setAttribute("hidden", true);
+        document.getElementById("finishpay").setAttribute("hidden", true);
+        document.getElementById("finishpay").innerHTML = "";
+      }
+      revealPay = function(){
+        document.getElementById("card-info").removeAttribute("hidden");
+      }
       pay = function(value){
+        document.getElementById("finishpay").removeAttribute("hidden");
+        document.getElementById("finishpay").innerHTML = "Finish payment";
         var bill = totalminutes*0.39;
-        var selected = document.getElementById("card-info");
-        selected.removeAttribute("hidden");
         if(value == "card"){
           alert("Credit/debit card");
         }
         else if(value == "voucher"){
           alert("Voucher");
         }
+        else alert("problem");
       }
       filterMarkers = function(type, category){
         if(type == "type"){

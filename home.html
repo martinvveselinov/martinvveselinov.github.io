@@ -19,16 +19,15 @@
     </span>
     <a id="cnt">Total bikes: </a>
     <span hidden id="bill"></span>
-    <span hidden id="pay" onclick="pay()"></span>
+    <span hidden id="pay" onclick="revealPay()"></span>
     <span hidden onclick="stop()" id="stop"></span>
     <span hidden id="minutes"></span>
-    <span hidden id="card-info" onchange="pay(this.value);">
-      <select>
-        <option value="payment">Payment method:</option>
-        <option value="card">Credit/debit card</option>
-        <option value="voucher">Voucher</option>
-      </select>
-    <span>
+    <select hidden id="card-info" onchange="pay(this.value);">
+      <option value="payment">Payment method:</option>
+      <option value="card">Credit/debit card</option>
+      <option value="voucher">Voucher</option>
+    </select>
+    <span hidden id="finishpay" onclick="finishpayment()"></span>
   </nav>
 
   <div id="side-menu-acc" class="side-nav-acc">
