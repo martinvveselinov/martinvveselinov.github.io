@@ -1,12 +1,14 @@
 function validate(){
 	var email = document.forms["login-form"]["email"].value;
 	var pass = document.forms["login-form"]["pass"].value;
+	alert(email);
+	alert(pass);
 	function clear(str) {
 		document.getElementById(str).value = "";
 		document.getElementById(str).style.color = currColor;
 	};
 	if(email === "admin@admin.bg" && pass === "admin"){
-		location.href='infopage.html';
+		location.href='./infopage.html';
 	}	
 	else if(email !== "user@user.bg" && email !== "admin@admin.bg"){
 		var currColor = document.getElementById('email').style.color;
@@ -22,6 +24,6 @@ function validate(){
 		return false;
 	}
 	else if(email === "user@user.bg" && pass === "pass"){
-		location.href='home.html';
+		location.href='./home.html';
 	}
 }

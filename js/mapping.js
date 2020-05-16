@@ -26,7 +26,7 @@
       type[3] = "Kolichka";
       type[4] = "Trotinetka";
       type[5] = "bike";
-      current = new google.maps.Marker({position: cur_pos, map: map, icon: 'img/here.png'});
+      current = new google.maps.Marker({position: cur_pos, map: map, icon: '../img/here.png'});
      
       current.addListener('click', function() {
               infowindow.close();
@@ -46,7 +46,7 @@
                 lat: position.coords.latitude + (Math.floor(Math.random() * 199) -99)/5000,
                 lng: position.coords.longitude - (Math.floor(Math.random() * 199) -99)/5000
               }
-        bikes[i] = new google.maps.Marker({position: posi, type: typ, battery: battery, map: map, icon: 'img/current.png'});
+        bikes[i] = new google.maps.Marker({position: posi, type: typ, battery: battery, map: map, icon: '../img/current.png'});
         
         bikes[i].addListener('click', (function(marker, i) {
            return function() {
@@ -218,7 +218,7 @@
       var r = confirm("Are you sure you want to logout?");
       if (r == true) {
         txt = "See you soon!";
-        window.location.href = "./index.html";
+        window.location.href = "../index.html";
       } else {
         txt = "Logout cancelled!";
       }
