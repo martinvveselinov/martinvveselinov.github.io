@@ -56,7 +56,7 @@
         dist = Math.floor(Spherical.computeDistanceBetween(from, to));
 
         infowindow = new google.maps.InfoWindow({
-          content: "Distance from you: " + dist + " m.<br>Bike type: " + bikes[i].type + "<br>Remaining battery: " + bikes[i].battery + "<button type=\"buttton\" onclick=\"unlockBike(\'" +this.position+ "\',\'start\');\">Click Me</button>"
+          content: "Distance from you: " + dist + " m.<br>Bike type: " + bikes[i].type + "<br>Remaining battery: " + bikes[i].battery + "<button type=\"buttton\" onclick=\"unlockBike(\'" +this.position+ "\',\'start\');\">Start session</button>"
         }); 
         //unlockBike(this);
         infowindow.open(map, this);
@@ -151,7 +151,7 @@
       }
       var unlockBike = function(marker, status){
           var test = JSON.parse(JSON.stringify(marker));
-          document.getElementById("stop").innerHTML = "Finish session";
+          document.getElementById("stop").innerHTML = "End session";
           document.getElementById("stop").removeAttribute("hidden");
           document.getElementById("stop").style.borderRight = "2px solid black";
           for(var i = 0; i < bikes.length; ++i){
