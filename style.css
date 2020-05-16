@@ -13,6 +13,12 @@ html, body {
 #type, #battery, #location{
   width: 100%;
 }
+#stop:hover{
+  background: white;
+  color: black;
+  cursor: pointer;
+
+}
 h1{
   text-align: center;
 }

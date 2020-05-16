@@ -246,6 +246,9 @@
         var test = JSON.parse(JSON.stringify(marker));
         document.getElementById("stop").innerHTML = "Finish session";
         document.getElementById("stop").removeAttribute("hidden");
+        document.getElementById("stop").style.borderRight = "2px solid black";
+      
+
         for(var i = 0; i < bikes.length; ++i){
           if(test != bikes[i].position){
             bikes[i].setVisible(false);
@@ -277,7 +280,7 @@
         var minutesLabel = document.getElementById("minutes");
         minutesLabel.setAttribute("hidden", true);
         minutesLabel.innerHTML = "";
-        
+        document.getElementById("stop").removeAttribute("style");
         document.getElementById("stop").setAttribute("hidden", true);
         document.getElementById("stop").innerHTML = "";
       }
