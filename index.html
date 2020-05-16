@@ -6,40 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<script type="text/javascript">
-		function validate(){
-			  var email = document.forms["login-form"]["email"].value;
-			  var pass = document.forms["login-form"]["pass"].value;
-		  	if(email === "admin@admin.bg" && pass === "admin"){
-				location.href='infopage.html';
-			}	
-			else if(email !== "user@user.bg" && email !== "admin@admin.bg"){
-					var currColor = document.getElementById('email').style.color;
-	        		document.getElementById('email').style.color = "red";
-	        		document.getElementById('email').value = "That email address is not registered!";
-	        		document.getElementById('email').onclick=function() {clear()};
-					function clear() {
-					  document.getElementById("email").value = "";
-	  				  document.getElementById("email").style.color = currColor;
-					};
-					return false;		
-
-			}
-			else if(pass !== "pass"){
-					var currColor = document.getElementById('pass').style.color;
-					document.getElementById('pass').style.color = "red";
-	        		document.getElementById('pass').onclick=function() {clear()};
-					function clear() {
-					  document.getElementById("pass").value = "";
-	  				  document.getElementById("pass").style.color = currColor;
-					};
-					return false;
-				}
-			else if(email === "user@user.bg" && pass === "pass"){
-				location.href='home.html';
-			}
-	}
-	</script>
+	<script type="text/javascript" src="./validate.js"></script>
 </head>
 <body>
 		<div class="container-login100">

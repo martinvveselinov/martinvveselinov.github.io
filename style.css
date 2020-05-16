@@ -13,7 +13,7 @@ html, body {
 #type, #battery, #location{
   width: 100%;
 }
-#stop:hover{
+#stop:hover, #pay:hover{
   background: white;
   color: black;
   cursor: pointer;
@@ -39,7 +39,7 @@ h1{
   font-size:25px;
   border-right: 2px solid black;
 }
-#minutes, #seconds, #delimiter, #stop{
+#minutes, #seconds, #delimiter, #stop, #bill, #pay{
   float:left;
   display:block;
   color: white;
