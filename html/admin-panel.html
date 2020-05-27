@@ -1,1 +1,133 @@
-<h1> hello, admin! </h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>VeloCity</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script type="text/javascript" src="../js/adminmapping.js"></script>
+   <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBenh82tfzET62NjqR7ca2t7UyAorxAH5k&libraries=geometry&callback=initMap">
+    </script>
+</head>
+<body>
+  <nav class="navbar">
+    <span class="open-slide">
+      <a href="#" onclick="openSlideMenuTemplate('acc')">
+        Menu
+      </a>
+    </span>
+    <a id="cnt">Total bikes: </a>
+    <span hidden id="bill"></span>
+    <span hidden id="pay" onclick="revealPay()"></span>
+    <span hidden onclick="stop()" id="stop"></span>
+    <span hidden id="minutes"></span>
+    <select hidden id="card-info" onchange="pay(this.value);">
+      <option value="payment">Payment method:</option>
+      <option value="card">Credit/debit card</option>
+      <option value="voucher">Voucher</option>
+    </select>
+    <span hidden id="finishpay" onclick="finishpayment()"></span>
+  </nav>
+
+  <div id="side-menu-acc" class="side-nav-acc">
+    <a href="#" class="btn-close-acc" onclick="closeSlideMenuTemplate('acc')">&times;</a>
+    <div class="img-name-container">
+      <img class="image" src="../img/avatar.png">
+      <p id="username" >User Userov</p>
+    </div>
+    <div class="choices-container">
+      <a href="#" onclick="openSlideMenuTemplate('set')">Settings</a>
+      <a href="#" onclick="openSlideMenuTemplate('notif')">Notifications</a>
+      <a href="#" onclick="openSlideMenuTemplate('search')">Search for bicycles</a>
+      <a href="#" onclick="openSlideMenuTemplate('nearby')">Show nearby</a>
+      <a href="#" onclick="openSlideMenuTemplate('invite')">Invite friends</a>
+      <a href="#" onclick="openSlideMenuTemplate('help')">Help</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </div>
+  </div>
+
+   <div id="side-menu-set" class="side-nav-set">
+    <a href="#" class="btn-close-set" onclick="closeSlideMenuTemplate('set')">&times;</a>
+    <div class="setting-choices-container">
+      <a href="#">Change profile picture</a>
+      <a href="#">Change email</a>
+      <a href="#">Report a problem</a>
+      <a href="#">Change personal info</a>
+    </div>
+  </div>
+  <div id="side-menu-notif" class="side-nav-notif">
+    <a href="#" class="btn-close-notif" onclick="closeSlideMenuTemplate('notif')">&times;</a>
+    <div class="notification-choices-container">
+      <a href="#">Show all notifications</a>
+      <a href="#">Mute notifications</a>
+      <a href="#">Delete all notifications</a>
+    </div>
+  </div>
+  <div id="side-menu-search" class="side-nav-search">
+    <a href="#" class="btn-close-search" onclick="closeSlideMenuTemplate('search')">&times;</a>
+    <div class="search-choices-container">
+      <a onclick="show('type')">Search by bike type</a>
+      <select hidden id="type" onchange="filterMarkers('type', this.value);">
+        <option value="all">All</option>
+        <option value="BMX">BMX</option>
+        <option value="Balkanche">Balkanche</option>
+        <option value="Trikolka">Trikolka</option>
+        <option value="Kolichka">Kolichka</option>
+        <option value="Trotinetka">Trotinetka</option>
+        <option value="bike">bike</option>
+      </select>
+      <a onclick="show('battery')">Search by battery charge</a>
+      <select hidden id="battery" onchange="filterMarkers('battery', this.value);">
+        <option value="all">All</option>
+        <option value="10">1-10</option>
+        <option value="20">11-20</option>
+        <option value="30">21-30</option>
+        <option value="40">31-40</option>
+        <option value="50">41-50</option>
+        <option value="60">51-60</option>
+        <option value="70">61-70</option>
+        <option value="80">71-80</option>
+        <option value="90">81-90</option>
+        <option value="100">91-100</option>
+      </select>
+      <a onclick="show('location')">Search by location</a>
+      <select hidden id="location" onchange="filterMarkers('location', this.value);">
+        <option value="all">All</option>
+        <option value="100">0-100 m.</option>
+        <option value="500">101-500 m.</option>
+        <option value="1000">501-1000 m.</option>
+        <option value="1500">1001-1500 m.</option>
+        <option value="2000"> 1500 m.</option>
+      </select>
+      <a onclick="showAll('bikes')">Show all</a>
+    </div>
+  </div>
+  <div id="side-menu-nearby" class="side-nav-nearby">
+    <a href="#" class="btn-close-nearby" onclick="closeSlideMenuTemplate('nearby')">&times;</a>
+    <div class="nearby-choices-container">z
+      <a onclick="showAll('bikes')">Show nearby bikes</a>
+      <a onclick="showAll('stands')">Show nearby bike stands</a>
+    </div>
+  </div>
+  <div id="side-menu-invite" class="side-nav-invite">
+    <a href="#" class="btn-close-invite" onclick="closeSlideMenuTemplate('invite')">&times;</a>
+    <div class="invite-choices-container">
+      <a href="#">Invite a friend</a>
+      <a href="#">Your friends</a>
+      <a href="#">How does invite works?</a>
+    </div>
+  </div>
+  <div id="side-menu-help" class="side-nav-help">
+    <a href="#" class="btn-close-help" onclick="closeSlideMenuTemplate('help')">&times;</a>
+    <div class="help-choices-container">
+      <a href="#">About VeloCity</a>
+      <a href="#">FAQ</a>
+      <a href="#">Contact us</a>
+      <a href="#">Terms and Conditions</a>
+    </div>
+  </div>
+    <div id="map"></div>
+
+</body>
+</html>
