@@ -2,6 +2,7 @@
        var totalminutes;
       var map;
       var bikes = [];
+      var stands = [];
       var positions = [];
       var current;
       var cur_pos;
@@ -27,7 +28,6 @@
       type[4] = "Trotinetka";
       type[5] = "bike";
       current = new google.maps.Marker({position: cur_pos, map: map, icon: '../img/here.png'});
-     
       current.addListener('click', function() {
               infowindow.close();
               infowindow = new google.maps.InfoWindow({
@@ -37,8 +37,18 @@
           });  
      
       var total = (Math.floor(Math.random() * 25) + 1);
+      var total_stands = (Math.floor(Math.random() * 10) + 1);
       document.getElementById("cnt").innerHTML += total;
       var i;
+    /*  for(i = 0; i < total_stands; ++i){
+        var free = Math.floor(Math.random() * 5) + 1;
+        var posi = {
+          lat: position.coords.latitude + (Math.floor(Math.random() * 199) -99)/5000,
+          lng: position.coords.longitude - (Math.floor(Math.random() * 199) -99)/5000
+        }
+        stands[i] = new google.maps.Marker({position: posi, free: free, map: map, icon: '../img/bikestand.png'});
+        stands[i].setVisible(false);
+      }*/
       for(i = 0; i < total; ++i){
         var typ = type[Math.floor(Math.random() * 5)];
         var battery = Math.floor(Math.random() * 100);
@@ -52,16 +62,37 @@
            return function() {
             infowindow.close();
             from = current.position;
-        to = marker.position;
-        dist = Math.floor(Spherical.computeDistanceBetween(from, to));
+            to = marker.position;
+            dist = Math.floor(Spherical.computeDistanceBetween(from, to));
+
+            infowindow = new google.maps.InfoWindow({
+              content: "Distance from you: " + dist + " m.<br>Bike type: " + bikes[i].type + "<br>Remaining battery: " + bikes[i].battery + "%<br><button type=\"buttton\" onclick=\"unlockBike(\'" +this.position+ "\',\'start\');\">Start session</button>"
+            }); 
+            infowindow.open(map, this);
+            }
+        })(bikes[i], i));
+      }
+       for(i = 0; i < total_stands; ++i){
+        var free = Math.floor(Math.random() * 5);
+        var posi = {
+          lat: position.coords.latitude + (Math.floor(Math.random() * 199) -99)/5000,
+          lng: position.coords.longitude - (Math.floor(Math.random() * 199) -99)/5000
+        }
+        stands[i] = new google.maps.Marker({position: posi, free: free, map: map, icon: '../img/bikestand.png'});
+        stands[i].setVisible(false);
+        stands[i].addListener('click', (function(stand, i) {
+           return function() {
+            infowindow.close();
+            from = current.position;
+            to = stand.position;
+            dist = Math.floor(Spherical.computeDistanceBetween(from, to));
 
         infowindow = new google.maps.InfoWindow({
-          content: "Distance from you: " + dist + " m.<br>Bike type: " + bikes[i].type + "<br>Remaining battery: " + bikes[i].battery + "<button type=\"buttton\" onclick=\"unlockBike(\'" +this.position+ "\',\'start\');\">Start session</button>"
-        }); 
+          content: "Distance from you: " + dist + " m.<br>Free slots: " + stands[i].free + "<br>"}); 
         //unlockBike(this);
         infowindow.open(map, this);
          }
-    })(bikes[i], i));
+    })(stands[i], i));
       }
             map.setCenter(cur_pos);
           }, function() {
@@ -73,6 +104,30 @@
           handleLocationError(false, infoWindow, map.getCenter());
         }
       }
+      function showAll(type){
+      var i;
+      if(type == 'bikes'){
+        for (i = 0; i < bikes.length; i++){
+          marker = bikes[i];
+          marker.setVisible(true);
+        }
+        for (i = 0; i < stands.length; i++){
+          marker = stands[i];
+          marker.setVisible(false);
+          
+        } 
+      }
+      else{
+       for (i = 0; i < stands.length; i++){
+          marker = stands[i];
+          marker.setVisible(true); 
+        } 
+        for (i = 0; i < bikes.length; i++){
+        marker = bikes[i];
+        marker.setVisible(false);
+        }
+      }
+    }
      
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
@@ -110,11 +165,21 @@
         else alert("problem");
       }
       filterMarkers = function(type, category){
-        if(type == "type"){
+        if(type == "all"){
+          for (i = 0; i < bikes.length; i++) {
+            marker = bikes[i];
+            if(marker.getVisible() == "false"){
+              marker.setVisible(true);
+            }
+          }
+        }  
+        else if(type == "type"){
           for (i = 0; i < bikes.length; i++) {
               marker = bikes[i];
               if(marker.type == category || category == 'all'){
-                  marker.setVisible(true);
+                if(marker.getVisible() == "false"){
+                  //marker.setVisible(true);
+                }
               }
               else{          
                   marker.setVisible(false);
@@ -192,14 +257,21 @@
         document.getElementById("stop").setAttribute("hidden", true);
         document.getElementById("stop").innerHTML = "";
       }
-      
+    
     function show(type){
+      if(type == "all"){
+        alert("showing all");
+        
+      }  
+    else{
       var x = document.getElementById(type);
+
       if(x.hasAttribute("hidden")){
         x.removeAttribute("hidden");
       }
       else x.setAttribute("hidden", true);
       
+    }
     }
     function openSlideMenuTemplate(menu){
       var id = "side-menu-" + menu;
