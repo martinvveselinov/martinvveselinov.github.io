@@ -265,7 +265,6 @@
     
     function show(type){
       if(type == "all"){
-        alert("showing all");
         
       }  
     else{

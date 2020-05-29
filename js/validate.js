@@ -19,7 +19,6 @@ function validate(){
 		return false;
 	}
 	else if(email === "user@user.bg" && pass === "pass"){
-		alert("home");
 		location.href='./html/home.html';
 		return false;
 	}
@@ -45,7 +44,6 @@ function validateAdmin(){
 		return false;
 	}
 	else if(email === "admin@admin.bg" && pass === "admin"){
-		alert("admin");
 		location.href='./html/admin-panel.html';
 		return false;
 	}
