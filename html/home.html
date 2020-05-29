@@ -52,7 +52,11 @@
     <div class="setting-choices-container">
       <a href="#">Change profile picture</a>
       <a href="#">Change email</a>
-      <a href="#">Report a problem</a>
+      <a href="#" onclick="reportProblem()">Report a problem</a>
+      <textarea id="report" hidden></textarea>
+      <button id="sendreport" hidden onclick="submit()">Submit report</button>
+      <br>
+      <span style="color: green; font-size: 15px;" id="msg" hidden></span>
       <a href="#">Change personal info</a>
     </div>
   </div>

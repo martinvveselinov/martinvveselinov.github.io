@@ -262,15 +262,32 @@
       if(type == "all"){
         
       }  
-    else{
-      var x = document.getElementById(type);
+      else{
+        var x = document.getElementById(type);
 
-      if(x.hasAttribute("hidden")){
-        x.removeAttribute("hidden");
+        if(x.hasAttribute("hidden")){
+          x.removeAttribute("hidden");
+        }
+        else x.setAttribute("hidden", true);
       }
-      else x.setAttribute("hidden", true);
-      
     }
+    function sleep (time) {
+      return new Promise((resolve) => setTimeout(resolve, time));
+  }
+
+    function reportProblem(){
+      document.getElementById("report").removeAttribute("hidden");
+      document.getElementById("sendreport").removeAttribute("hidden");
+    }
+    function submit(){
+        document.getElementById("msg").removeAttribute("hidden");
+      document.getElementById("msg").innerHTML = "Report sent successfuly!";
+      sleep(2500).then(() => {
+        document.getElementById("report").setAttribute("hidden", true);
+      document.getElementById("sendreport").setAttribute("hidden", true);
+      document.getElementById("msg").setAttribute("hidden", true);
+      document.getElementById("msg").innerHTML = "";
+      });
     }
     function openSlideMenuTemplate(menu){
       var id = "side-menu-" + menu;
