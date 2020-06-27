@@ -5,22 +5,20 @@ function validate(){
 		document.getElementById(str).value = "";
 		document.getElementById(str).style.color = currColor;
 	};
-	if(email !== "user@user.bg"){
+	if(email === "user@user.bg" && pass === "user"){
+    		location.href='./html/home.html';
+    		return false;
+    }
+    else if(email === "admin@admin.bg" && pass === "admin"){
+            location.href='./html/admin-panel.html';
+            return false;
+    }
+	else{
 		var currColor = document.getElementById('email').style.color;
 		document.getElementById('email').style.color = "red";
 		document.getElementById('email').value = "That email address is not registered!";
 		document.getElementById('email').onclick=function() {clear('email')};
 		return false;		
-	}
-	else if(pass !== "pass"){
-		var currColor = document.getElementById('pass').style.color;
-		document.getElementById('pass').style.color = "red";
-		document.getElementById('pass').onclick=function() {clear('pass')};
-		return false;
-	}
-	else if(email === "user@user.bg" && pass === "pass"){
-		location.href='./html/home.html';
-		return false;
 	}
 }
 function validateAdmin(){
